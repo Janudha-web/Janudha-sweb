@@ -1,5 +1,5 @@
 import { Component, useEffect, useLayoutEffect, useState } from "react";
-import { Routes, Route, NavLink, Link, useLocation } from "react-router-dom";
+import { Routes, Route, Link, useLocation } from "react-router-dom";
 import { ArrowRight, ArrowUpRight, Github, Linkedin, Instagram, Menu, X, Code2, Server, Database, Boxes, Palette, CheckCircle2, Send, FileQuestion } from "lucide-react";
 import { getSeo, normalizePath } from "./seo";
 import { AdminLogin, AdminPosts, Posts } from "./Posts";
@@ -58,19 +58,20 @@ function Seo() {
 
 function Header() {
   const [open, setOpen] = useState(false);
+  const { pathname } = useLocation();
   return <header className="fixed inset-x-0 top-0 z-50 border-b border-white/10 bg-black/90 text-white backdrop-blur-xl">
     <div className="shell flex h-14 items-center justify-between">
-      <Link to="/" onClick={() => setOpen(false)} className="flex items-center gap-2.5 text-sm font-semibold tracking-tight">
+      <a href="/" onClick={() => setOpen(false)} className="flex items-center gap-2.5 text-sm font-semibold tracking-tight">
         <img src="/rect59R.png" alt="" className="brand-mark h-7 w-7 object-contain" />
         <span>Aenuka.</span>
-      </Link>
+      </a>
       <nav className="hidden items-center gap-8 md:flex">
-        {nav.map(([label, path]) => <NavLink key={path} to={path} className={({isActive}) => `text-xs transition hover:text-white ${isActive ? "font-semibold text-white" : "text-white/55"}`}>{label}</NavLink>)}
+        {nav.map(([label, path]) => <a key={path} href={path} aria-current={pathname === path ? "page" : undefined} className={`text-xs transition hover:text-white ${pathname === path ? "font-semibold text-white" : "text-white/55"}`}>{label}</a>)}
       </nav>
-      <Link to="/contact" className="hidden rounded-full bg-white px-4 py-2 text-xs font-medium text-black transition hover:bg-white/85 md:block">Let’s talk</Link>
+      <a href="/contact" className="hidden rounded-full bg-white px-4 py-2 text-xs font-medium text-black transition hover:bg-white/85 md:block">Let’s talk</a>
       <button aria-label="Toggle menu" className="md:hidden" onClick={() => setOpen(!open)}>{open ? <X size={20}/> : <Menu size={20}/>}</button>
     </div>
-    {open && <nav className="border-t border-white/10 bg-black px-5 py-5 md:hidden">{nav.map(([label,path]) => <NavLink key={path} to={path} onClick={() => setOpen(false)} className="block border-b border-white/10 py-4 text-2xl font-semibold text-white">{label}</NavLink>)}</nav>}
+    {open && <nav className="border-t border-white/10 bg-black px-5 py-5 md:hidden">{nav.map(([label,path]) => <a key={path} href={path} aria-current={pathname === path ? "page" : undefined} onClick={() => setOpen(false)} className="block border-b border-white/10 py-4 text-2xl font-semibold text-white">{label}</a>)}</nav>}
   </header>
 }
 
