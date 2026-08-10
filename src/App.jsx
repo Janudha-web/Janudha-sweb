@@ -1,4 +1,4 @@
-import { useEffect, useLayoutEffect, useState } from "react";
+import { Component, useEffect, useLayoutEffect, useState } from "react";
 import { Routes, Route, NavLink, Link, useLocation } from "react-router-dom";
 import { ArrowRight, ArrowUpRight, Github, Linkedin, Instagram, Menu, X, Code2, Server, Database, Boxes, Palette, CheckCircle2, Send, FileQuestion } from "lucide-react";
 import { getSeo, normalizePath } from "./seo";
@@ -77,7 +77,7 @@ function Header() {
 function Footer() {
   return <footer className="bg-ink py-12 text-white">
     <div className="shell flex flex-col gap-8 md:flex-row md:items-end md:justify-between">
-      <div><p className="text-2xl font-semibold tracking-tight">Let’s make something useful.</p><p className="mt-2 text-sm text-white/45">Colombo, Sri Lanka · Available for new opportunities</p></div>
+      <div><p className="text-2xl font-semibold tracking-tight">Let’s make something useful.</p><p className="mt-2 text-sm text-white/45">Intern Backend Engineer at Arimac Digital · Colombo, Sri Lanka</p></div>
       <div className="flex gap-5 text-white/55">
         <a aria-label="GitHub" href="https://github.com/Aenuka" target="_blank" rel="noreferrer"><Github size={20}/></a>
         <a aria-label="LinkedIn" href="https://lk.linkedin.com/in/aenuka" target="_blank" rel="noreferrer"><Linkedin size={20}/></a>
@@ -92,9 +92,9 @@ function Home() {
     <section className="hero-field relative flex min-h-[92vh] items-center overflow-hidden bg-mist pt-14">
       <div className="hero-glow" aria-hidden="true" />
       <div className="shell relative z-10 py-24 text-center">
-        <p className="eyebrow reveal reveal-1 mb-7">Software Engineer · Colombo</p>
+        <p className="eyebrow reveal reveal-1 mb-7">Intern Backend Engineer · Arimac Digital</p>
         <h1 className="display reveal reveal-2 mx-auto max-w-5xl">Aenuka Buddhakorala</h1>
-        <p className="reveal reveal-3 mx-auto mt-8 max-w-xl text-lg leading-relaxed text-black/55">I’m Aenuka, a software engineering undergraduate building clear, scalable digital experiences from interface to infrastructure.</p>
+        <p className="reveal reveal-3 mx-auto mt-8 max-w-xl text-lg leading-relaxed text-black/55">I’m Aenuka, an Intern Backend Engineer at Arimac Digital and a software engineering undergraduate building clear, scalable digital experiences.</p>
         <div className="reveal reveal-4 mt-10 flex flex-wrap justify-center gap-3">
           <Link className="button-primary" to="/projects">Explore my work <ArrowRight size={16}/></Link>
           <Link className="button-secondary" to="/about">More about me</Link>
@@ -117,12 +117,12 @@ function Home() {
 }
 
 function About() {
-  const timeline = [["2019","The first spark","Started building small web experiences after discovering HTML."],["2019–20","A stronger base","Completed Computer Science and Advanced English certificates at NIBM."],["2020–23","Stayed curious","Studied ICT while steadily expanding my technical foundation."],["2023–Now","Engineering at scale","Studying Software Engineering at SLIIT and leading practical team projects."]];
+  const timeline = [["2019","The first spark","Started building small web experiences after discovering HTML."],["2019–20","A stronger base","Completed Computer Science and Advanced English certificates at NIBM."],["2020–23","Stayed curious","Studied ICT while steadily expanding my technical foundation."],["2023–Now","Engineering at scale","Studying Software Engineering at SLIIT and leading practical team projects."],["2026–Now","Backend engineering at Arimac","Started a new position as an Intern Backend Engineer at Arimac Digital."]];
   return <main className="page-enter pt-14">
     <section className="shell py-24 md:py-36"><p className="eyebrow">About me</p><h1 className="headline mt-6 max-w-5xl">Aenuka Buddhakorala</h1></section>
     <section className="bg-mist py-20 md:py-28"><div className="shell grid gap-14 md:grid-cols-[.8fr_1.2fr]">
-      <div><p className="text-2xl font-semibold tracking-tight">A builder at heart.</p><p className="mt-4 text-black/50">Software Engineering undergraduate at SLIIT. Third year, moving into the fourth.</p></div>
-      <div className="space-y-6 text-xl leading-relaxed text-black/70"><p>I started by following HTML tutorials after my O/L exams and became fascinated by the immediacy of turning an idea into something people can use.</p><p>Today, I work across frontend, backend, mobile, and distributed systems. I care about calm interfaces, understandable code, and teams that learn together.</p></div>
+      <div><p className="text-2xl font-semibold tracking-tight">A builder at heart.</p><p className="mt-4 text-black/50">Intern Backend Engineer at Arimac Digital and a Software Engineering undergraduate at SLIIT.</p></div>
+      <div className="space-y-6 text-xl leading-relaxed text-black/70"><p>I started by following HTML tutorials after my O/L exams and became fascinated by the immediacy of turning an idea into something people can use.</p><p>Today, I’m growing as an Intern Backend Engineer at Arimac Digital while continuing to work across frontend, backend, mobile, and distributed systems. I care about calm interfaces, understandable code, and teams that learn together.</p></div>
     </div></section>
     <section className="shell py-24 md:py-32"><p className="eyebrow">My path</p><div className="mt-12 divide-y">{timeline.map(([year,title,text]) => <div key={year} className="grid gap-3 py-8 md:grid-cols-[180px_1fr_1fr] md:items-baseline"><p className="text-sm text-blue">{year}</p><h3 className="text-2xl font-semibold tracking-tight">{title}</h3><p className="leading-relaxed text-black/50">{text}</p></div>)}</div></section>
   </main>
@@ -173,7 +173,7 @@ function Contact() {
     } catch(err) { setState({status:"error",message:err.message || "Please try again."}); }
   }
   return <main className="page-enter bg-mist pt-14"><section className="shell grid min-h-[calc(100vh-3.5rem)] gap-16 py-20 md:grid-cols-2 md:items-center md:py-28">
-    <div><p className="eyebrow">Get in touch</p><h1 className="headline mt-6">Contact me</h1><p className="mt-7 max-w-md text-lg leading-relaxed text-black/50">I’m open to internships, collaborations, and conversations about software and product design.</p><div className="mt-12 flex gap-5"><a href="https://github.com/Aenuka" target="_blank" rel="noreferrer"><Github/></a><a href="https://lk.linkedin.com/in/aenuka" target="_blank" rel="noreferrer"><Linkedin/></a></div></div>
+    <div><p className="eyebrow">Get in touch</p><h1 className="headline mt-6">Contact me</h1><p className="mt-7 max-w-md text-lg leading-relaxed text-black/50">I’m an Intern Backend Engineer at Arimac Digital and open to collaborations and conversations about software and product design.</p><div className="mt-12 flex gap-5"><a href="https://github.com/Aenuka" target="_blank" rel="noreferrer"><Github/></a><a href="https://lk.linkedin.com/in/aenuka" target="_blank" rel="noreferrer"><Linkedin/></a></div></div>
     <form onSubmit={submit} className="rounded-[2rem] bg-white p-7 shadow-xl shadow-black/[.04] md:p-10">
       <div className="grid gap-6"><label className="text-sm font-medium">Name<input required name="name" className="mt-2 w-full rounded-xl border bg-mist px-4 py-3.5 font-normal outline-none focus:border-blue" placeholder="Your name"/></label><label className="text-sm font-medium">Email<input required type="email" name="email" className="mt-2 w-full rounded-xl border bg-mist px-4 py-3.5 font-normal outline-none focus:border-blue" placeholder="you@example.com"/></label><label className="text-sm font-medium">Message<textarea required name="message" rows="5" className="mt-2 w-full resize-none rounded-xl border bg-mist px-4 py-3.5 font-normal outline-none focus:border-blue" placeholder="Tell me a little about your idea."/></label><button disabled={state.status==="sending"} className="button-primary w-full disabled:opacity-50">{state.status==="sending" ? "Sending…" : <>Send message <Send size={16}/></>}</button>{state.message && <p className={`flex items-center gap-2 text-sm ${state.status==="sent" ? "text-green-600" : state.status==="warning" ? "text-amber-600" : "text-red-600"}`}>{state.status==="sent"&&<CheckCircle2 size={16}/>} {state.message}</p>}</div>
     </form>
@@ -205,8 +205,36 @@ function RouteProgress() {
   return <div key={pathname} className="route-progress" aria-hidden="true"/>;
 }
 
+class AppErrorBoundary extends Component {
+  constructor(props) {
+    super(props);
+    this.state = { hasError: false };
+  }
+
+  static getDerivedStateFromError() {
+    return { hasError: true };
+  }
+
+  componentDidCatch(error, errorInfo) {
+    console.error("Page rendering failed", error, errorInfo);
+  }
+
+  render() {
+    if (!this.state.hasError) return this.props.children;
+
+    return <main className="flex min-h-screen items-center bg-mist px-5">
+      <section className="mx-auto max-w-xl text-center">
+        <p className="eyebrow">Something went wrong</p>
+        <h1 className="mt-4 text-4xl font-semibold tracking-tight">This page couldn’t load.</h1>
+        <p className="mt-5 text-black/50">Please reload the page to try again.</p>
+        <button type="button" className="button-primary mt-8" onClick={() => window.location.reload()}>Reload page</button>
+      </section>
+    </main>;
+  }
+}
+
 export default function App() {
   const location = useLocation();
   const isAdminDashboard = location.pathname === "/admin/dashboard";
-  return <><Seo/><ScrollTop/><RouteProgress/>{!isAdminDashboard && <Header/>}<Routes location={location} key={location.pathname}><Route path="/" element={<Home/>}/><Route path="/about" element={<About/>}/><Route path="/skills" element={<Skills/>}/><Route path="/projects" element={<Projects/>}/><Route path="/posts" element={<Posts/>}/><Route path="/admin" element={<AdminLogin/>}/><Route path="/admin/dashboard" element={<AdminPosts/>}/><Route path="/contact" element={<Contact/>}/><Route path="*" element={<NotFound/>}/></Routes>{!isAdminDashboard && <Footer/>}</>;
+  return <AppErrorBoundary><Seo/><ScrollTop/><RouteProgress/>{!isAdminDashboard && <Header/>}<Routes><Route path="/" element={<Home/>}/><Route path="/about" element={<About/>}/><Route path="/skills" element={<Skills/>}/><Route path="/projects" element={<Projects/>}/><Route path="/posts" element={<Posts/>}/><Route path="/admin" element={<AdminLogin/>}/><Route path="/admin/dashboard" element={<AdminPosts/>}/><Route path="/contact" element={<Contact/>}/><Route path="*" element={<NotFound/>}/></Routes>{!isAdminDashboard && <Footer/>}</AppErrorBoundary>;
 }

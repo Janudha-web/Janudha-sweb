@@ -17,6 +17,7 @@ Aenuka builds accessible product interfaces, maintainable backend services, and 
 - Name: Aenuka Buddhakorala
 - Also known as: Aenuin
 - Location: Colombo, Sri Lanka
+- Current role: Intern Backend Engineer at Arimac Digital
 - Education: Software Engineering undergraduate at SLIIT
 - GitHub: https://github.com/Aenuka
 - LinkedIn: https://lk.linkedin.com/in/aenuka

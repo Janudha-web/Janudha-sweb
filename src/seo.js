@@ -4,14 +4,14 @@ export const personId = `${siteUrl}/#person`;
 
 export const seo = {
   "/": {
-    title: "Aenuka Buddhakorala | Software Engineer",
+    title: "Aenuka Buddhakorala | Intern Backend Engineer at Arimac Digital",
     description:
-      "Aenuka Buddhakorala is a software engineer in Sri Lanka building thoughtful web applications, backend systems, and digital products.",
-    keywords: "Aenuka Buddhakorala, Aenuin, software engineer Sri Lanka, web developer, portfolio",
-    imageAlt: "Aenuka Buddhakorala, software engineer",
-    heading: "Aenuka Buddhakorala — software engineer in Colombo, Sri Lanka",
+      "Aenuka Buddhakorala is an Intern Backend Engineer at Arimac Digital and a Software Engineering undergraduate at SLIIT.",
+    keywords: "Aenuka Buddhakorala, Aenuin, Arimac Digital, intern backend engineer, software engineer Sri Lanka, portfolio",
+    imageAlt: "Aenuka Buddhakorala, Intern Backend Engineer at Arimac Digital",
+    heading: "Aenuka Buddhakorala — Intern Backend Engineer at Arimac Digital",
     summary:
-      "Aenuka Buddhakorala is a Software Engineering undergraduate at SLIIT who builds accessible web interfaces, backend services, and distributed systems using React, Spring Boot, Node.js, Docker, and Kubernetes.",
+      "Aenuka Buddhakorala is an Intern Backend Engineer at Arimac Digital and a Software Engineering undergraduate at SLIIT who builds backend services and distributed systems.",
   },
   "/about": {
     title: "About Aenuka Buddhakorala | Software Engineer",
@@ -21,7 +21,7 @@ export const seo = {
     imageAlt: "About Aenuka Buddhakorala",
     heading: "About Aenuka Buddhakorala",
     summary:
-      "Aenuka is a Sri Lankan software engineer and SLIIT undergraduate with experience across frontend, backend, mobile, testing, and distributed systems. He values clear interfaces, maintainable code, and collaborative teams.",
+      "Aenuka is an Intern Backend Engineer at Arimac Digital and a SLIIT undergraduate with experience across frontend, backend, mobile, testing, and distributed systems.",
   },
   "/skills": {
     title: "Software Engineering Skills | Aenuka Buddhakorala",
@@ -46,12 +46,12 @@ export const seo = {
   "/contact": {
     title: "Contact Aenuka Buddhakorala | Software Engineer",
     description:
-      "Contact Aenuka Buddhakorala for software engineering opportunities, internships, collaborations, and digital product development.",
+      "Contact Aenuka Buddhakorala, an Intern Backend Engineer at Arimac Digital, for collaborations and conversations about software and digital products.",
     keywords: "contact Aenuka Buddhakorala, software engineer Sri Lanka, software collaboration",
     imageAlt: "Contact Aenuka Buddhakorala",
     heading: "Contact Aenuka Buddhakorala",
     summary:
-      "Aenuka is available for software engineering internships, collaborations, and conversations about web applications, backend systems, distributed systems, and digital product development.",
+      "Aenuka is an Intern Backend Engineer at Arimac Digital and is open to collaborations and conversations about web applications, backend systems, distributed systems, and digital products.",
   },
   "/posts": {
     title: "Software Engineering Posts | Aenuka Buddhakorala",
