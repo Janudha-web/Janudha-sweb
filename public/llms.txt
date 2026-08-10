@@ -18,6 +18,7 @@ Aenuka builds accessible product interfaces, maintainable backend services, and 
 - Also known as: Aenuin
 - Location: Colombo, Sri Lanka
 - Current role: Intern Backend Engineer at Arimac Digital
+- Employer: Arimac Digital (https://arimac.digital/)
 - Education: Software Engineering undergraduate at SLIIT
 - GitHub: https://github.com/Aenuka
 - LinkedIn: https://lk.linkedin.com/in/aenuka

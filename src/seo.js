@@ -14,51 +14,51 @@ export const seo = {
       "Aenuka Buddhakorala is an Intern Backend Engineer at Arimac Digital and a Software Engineering undergraduate at SLIIT who builds backend services and distributed systems.",
   },
   "/about": {
-    title: "About Aenuka Buddhakorala | Software Engineer",
+    title: "About Aenuka Buddhakorala | Backend Engineer at Arimac Digital",
     description:
-      "Learn about Aenuka Buddhakorala’s software engineering journey, education at SLIIT, interests, and approach to building digital products.",
-    keywords: "about Aenuka Buddhakorala, SLIIT software engineering, software engineer journey",
+      "Learn about Aenuka Buddhakorala, an Intern Backend Engineer at Arimac Digital and Software Engineering undergraduate at SLIIT in Sri Lanka.",
+    keywords: "Aenuka Buddhakorala Arimac Digital, Arimac backend engineer, intern backend engineer Sri Lanka, SLIIT software engineering",
     imageAlt: "About Aenuka Buddhakorala",
     heading: "About Aenuka Buddhakorala",
     summary:
       "Aenuka is an Intern Backend Engineer at Arimac Digital and a SLIIT undergraduate with experience across frontend, backend, mobile, testing, and distributed systems.",
   },
   "/skills": {
-    title: "Software Engineering Skills | Aenuka Buddhakorala",
+    title: "Backend Engineering Skills | Aenuka Buddhakorala, Arimac Digital",
     description:
-      "Explore Aenuka Buddhakorala’s skills across React, JavaScript, Spring Boot, Node.js, databases, Docker, Kubernetes, design, and testing.",
-    keywords: "React, Spring Boot, Node.js, Docker, Kubernetes, software engineering skills",
+      "Explore the backend and software engineering skills of Aenuka Buddhakorala, Intern Backend Engineer at Arimac Digital, including Spring Boot, Node.js, Docker, and Kubernetes.",
+    keywords: "Aenuka Buddhakorala Arimac, backend engineering skills, Spring Boot, Node.js, Docker, Kubernetes, Arimac Digital engineer",
     imageAlt: "Software engineering skills of Aenuka Buddhakorala",
     heading: "Software engineering skills",
     summary:
       "Aenuka works with React, JavaScript, HTML, CSS, Tailwind CSS, Java, Spring Boot, Node.js, Express.js, Python, SQL, MongoDB, Docker, Kubernetes, Cypress, Figma, GitHub, Jira, Agile, and Scrum.",
   },
   "/projects": {
-    title: "Software Projects | Aenuka Buddhakorala",
+    title: "Backend Projects | Aenuka Buddhakorala, Arimac Digital Engineer",
     description:
-      "Explore software projects by Aenuka Buddhakorala, including healthcare microservices, Quizora, Cey Harvest, MERN systems, and Cypress testing.",
-    keywords: "software projects, healthcare microservices, Quizora, Cey Harvest, MERN, Cypress",
+      "Explore backend and software projects by Aenuka Buddhakorala, an Intern Backend Engineer at Arimac Digital, including microservices and distributed systems.",
+    keywords: "Aenuka Buddhakorala Arimac Digital, backend engineer projects, healthcare microservices, Spring Boot, Docker, Kubernetes",
     imageAlt: "Software projects by Aenuka Buddhakorala",
     heading: "Software projects by Aenuka Buddhakorala",
     summary:
       "Selected work includes a Kubernetes-orchestrated healthcare microservices platform, the Quizora exam management system, the Cey Harvest agriculture platform, an animal hospital inventory system, and a Cypress automation suite.",
   },
   "/contact": {
-    title: "Contact Aenuka Buddhakorala | Software Engineer",
+    title: "Contact Aenuka Buddhakorala | Arimac Digital Backend Engineer",
     description:
       "Contact Aenuka Buddhakorala, an Intern Backend Engineer at Arimac Digital, for collaborations and conversations about software and digital products.",
-    keywords: "contact Aenuka Buddhakorala, software engineer Sri Lanka, software collaboration",
+    keywords: "contact Aenuka Buddhakorala, Aenuka Arimac Digital, backend engineer Sri Lanka, software collaboration",
     imageAlt: "Contact Aenuka Buddhakorala",
     heading: "Contact Aenuka Buddhakorala",
     summary:
       "Aenuka is an Intern Backend Engineer at Arimac Digital and is open to collaborations and conversations about web applications, backend systems, distributed systems, and digital products.",
   },
   "/posts": {
-    title: "Software Engineering Posts | Aenuka Buddhakorala",
+    title: "Backend Engineering Posts | Aenuka Buddhakorala",
     description:
-      "Read software engineering notes, project updates, technical ideas, and development insights from Aenuka Buddhakorala.",
+      "Read backend engineering notes, project updates, and development insights from Aenuka Buddhakorala, Intern Backend Engineer at Arimac Digital.",
     keywords:
-      "Aenuka Buddhakorala posts, software engineering blog, programming notes, web development insights, project updates",
+      "Aenuka Buddhakorala Arimac Digital, backend engineering blog, software engineering posts, programming notes, project updates",
     imageAlt: "Posts by Aenuka Buddhakorala",
     heading: "Software engineering posts by Aenuka Buddhakorala",
     summary:
