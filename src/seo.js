@@ -1,88 +1,52 @@
-export const siteUrl = "https://www.aenuin.com";
-export const socialImage = `${siteUrl}/Wallpaper-512.png`;
+import { profile, skills, projects } from "./profile.js";
+
+export const siteUrl = "https://janudha.com";
+export const socialImage = `${siteUrl}/janulogo.png`;
 export const personId = `${siteUrl}/#person`;
 
 export const seo = {
   "/": {
-    title: "Aenuka Buddhakorala | Intern Backend Engineer at Arimac Digital",
-    description:
-      "Aenuka Buddhakorala is an Intern Backend Engineer at Arimac Digital and a Software Engineering undergraduate at SLIIT.",
-    keywords: "Aenuka Buddhakorala, Aenuin, Arimac Digital, intern backend engineer, software engineer Sri Lanka, portfolio",
-    imageAlt: "Aenuka Buddhakorala, Intern Backend Engineer at Arimac Digital",
-    heading: "Aenuka Buddhakorala — Intern Backend Engineer at Arimac Digital",
-    summary:
-      "Aenuka Buddhakorala is an Intern Backend Engineer at Arimac Digital and a Software Engineering undergraduate at SLIIT who builds backend services and distributed systems.",
+    title: "Janudha Kendangamuwa | Aspiring Business Analyst",
+    description: "Meet Janudha Kendangamuwa, an aspiring business analyst and IT for Business undergraduate at NIBM. Explore his skills, education, and projects in Sri Lanka.",
+    heading: profile.name,
+    summary: profile.summary,
   },
   "/about": {
-    title: "About Aenuka Buddhakorala | Backend Engineer at Arimac Digital",
-    description:
-      "Learn about Aenuka Buddhakorala, an Intern Backend Engineer at Arimac Digital and Software Engineering undergraduate at SLIIT in Sri Lanka.",
-    keywords: "Aenuka Buddhakorala Arimac Digital, Arimac backend engineer, intern backend engineer Sri Lanka, SLIIT software engineering",
-    imageAlt: "About Aenuka Buddhakorala",
-    heading: "About Aenuka Buddhakorala",
-    summary:
-      "Aenuka is an Intern Backend Engineer at Arimac Digital and a SLIIT undergraduate with experience across frontend, backend, mobile, testing, and distributed systems.",
+    title: "About Janudha Kendangamuwa | Education & Background",
+    description: "Discover Janudha Kendangamuwa’s IT for Business studies at NIBM in collaboration with Coventry University, system design background, and career goals.",
+    heading: "About Janudha Kendangamuwa",
+    summary: "Janudha is a fourth-year BSc (Hons) IT for Business undergraduate at NIBM, in collaboration with Coventry University, England, seeking a business analyst internship.",
   },
   "/skills": {
-    title: "Backend Engineering Skills | Aenuka Buddhakorala, Arimac Digital",
-    description:
-      "Explore the backend and software engineering skills of Aenuka Buddhakorala, Intern Backend Engineer at Arimac Digital, including Spring Boot, Node.js, Docker, and Kubernetes.",
-    keywords: "Aenuka Buddhakorala Arimac, backend engineering skills, Spring Boot, Node.js, Docker, Kubernetes, Arimac Digital engineer",
-    imageAlt: "Software engineering skills of Aenuka Buddhakorala",
-    heading: "Software engineering skills",
-    summary:
-      "Aenuka works with React, JavaScript, HTML, CSS, Tailwind CSS, Java, Spring Boot, Node.js, Express.js, Python, SQL, MongoDB, Docker, Kubernetes, Cypress, Figma, GitHub, Jira, Agile, and Scrum.",
+    title: "Business Analysis & Technical Skills | Janudha Kendangamuwa",
+    description: "Explore Janudha Kendangamuwa’s skills in UML, SDLC, Jira, SQL, Java, C#, UI design, project management, analytical thinking, and teamwork.",
+    heading: "Business and technical skills",
+    summary: skills.flatMap(group => group.items).join(", ") + ". Languages: English and Sinhala.",
   },
   "/projects": {
-    title: "Backend Projects | Aenuka Buddhakorala, Arimac Digital Engineer",
-    description:
-      "Explore backend and software projects by Aenuka Buddhakorala, an Intern Backend Engineer at Arimac Digital, including microservices and distributed systems.",
-    keywords: "Aenuka Buddhakorala Arimac Digital, backend engineer projects, healthcare microservices, Spring Boot, Docker, Kubernetes",
-    imageAlt: "Software projects by Aenuka Buddhakorala",
-    heading: "Software projects by Aenuka Buddhakorala",
-    summary:
-      "Selected work includes a Kubernetes-orchestrated healthcare microservices platform, the Quizora exam management system, the Cey Harvest agriculture platform, an animal hospital inventory system, and a Cypress automation suite.",
+    title: "Business & Technology Projects | Janudha Kendangamuwa",
+    description: "Explore Janudha Kendangamuwa’s railway reservation, cross-region ERP, Leaf Nest eco-friendly system, and movie suggestion projects.",
+    heading: "Business and technology projects",
+    summary: projects.map(project => `${project.title}: ${project.description}`).join(" "),
   },
   "/contact": {
-    title: "Contact Aenuka Buddhakorala | Arimac Digital Backend Engineer",
-    description:
-      "Contact Aenuka Buddhakorala, an Intern Backend Engineer at Arimac Digital, for collaborations and conversations about software and digital products.",
-    keywords: "contact Aenuka Buddhakorala, Aenuka Arimac Digital, backend engineer Sri Lanka, software collaboration",
-    imageAlt: "Contact Aenuka Buddhakorala",
-    heading: "Contact Aenuka Buddhakorala",
-    summary:
-      "Aenuka is an Intern Backend Engineer at Arimac Digital and is open to collaborations and conversations about web applications, backend systems, distributed systems, and digital products.",
+    title: "Contact Janudha Kendangamuwa | Business Analyst Opportunities",
+    description: "Contact Janudha Kendangamuwa in Kuruwita, Sri Lanka about business analyst internships, system design, and project collaboration. Connect by email or LinkedIn.",
+    heading: "Contact Janudha Kendangamuwa",
+    summary: `Janudha welcomes business analyst internship opportunities and project collaboration. Email: ${profile.email}. Phone: ${profile.phone}. Location: ${profile.location}.`,
   },
   "/posts": {
-    title: "Backend Engineering Posts | Aenuka Buddhakorala",
-    description:
-      "Read backend engineering notes, project updates, and development insights from Aenuka Buddhakorala, Intern Backend Engineer at Arimac Digital.",
-    keywords:
-      "Aenuka Buddhakorala Arimac Digital, backend engineering blog, software engineering posts, programming notes, project updates",
-    imageAlt: "Posts by Aenuka Buddhakorala",
-    heading: "Software engineering posts by Aenuka Buddhakorala",
-    summary:
-      "Software engineering notes, technical ideas, project progress, and development updates from Aenuka Buddhakorala.",
+    title: "Business & Technology Notes | Janudha Kendangamuwa",
+    description: "Follow Janudha Kendangamuwa’s notes, learning progress, and project updates about business analysis, information technology, and system design.",
+    heading: "Business and technology notes",
+    summary: "Notes, learning progress, and project updates from Janudha Kendangamuwa.",
   },
 };
 
+export const privatePaths = ["/admin", "/admin/dashboard"];
 const privateSeo = {
-  "/admin": {
-    title: "Manage Posts | Aenuka",
-    description: "Private post management dashboard.",
-    keywords: "",
-    imageAlt: "",
-    heading: "Manage posts",
-    summary: "",
-  },
-  "/admin/dashboard": {
-    title: "Admin Dashboard | Aenuka",
-    description: "Private post management dashboard.",
-    keywords: "",
-    imageAlt: "",
-    heading: "Admin dashboard",
-    summary: "",
-  },
+  "/admin": { title: "Manage Posts | Janudha", description: "Private post management login.", heading: "Manage posts", summary: "" },
+  "/admin/dashboard": { title: "Admin Dashboard | Janudha", description: "Private post management dashboard.", heading: "Admin dashboard", summary: "" },
 };
 
 export function normalizePath(pathname) {
@@ -92,13 +56,21 @@ export function normalizePath(pathname) {
 
 export function getSeo(pathname) {
   const path = normalizePath(pathname);
-  const page = privateSeo[path] || seo[path] || seo["/"];
+  const isPublic = Object.hasOwn(seo, path);
+  const page = seo[path] || privateSeo[path] || {
+    title: "Page Not Found | Janudha Kendangamuwa",
+    description: "This page could not be found. Explore Janudha Kendangamuwa’s portfolio, education, skills, and projects.",
+    heading: "Page not found", summary: "The requested page could not be found.",
+  };
   return {
     ...page,
     path,
+    keywords: isPublic ? "Janudha Kendangamuwa, business analyst, IT for Business, NIBM, Sri Lanka, portfolio" : "",
+    imageAlt: "Janudha Kendangamuwa logo",
     canonicalUrl: `${siteUrl}${path === "/" ? "/" : path}`,
     image: socialImage,
-    structuredData: getStructuredData(path, page),
+    robots: isPublic ? "index, follow, max-image-preview:large" : "noindex, nofollow",
+    structuredData: isPublic ? getStructuredData(path, page) : { "@context": "https://schema.org", "@graph": [] },
   };
 }
 
@@ -106,71 +78,57 @@ function getStructuredData(path, page) {
   const canonicalUrl = `${siteUrl}${path === "/" ? "/" : path}`;
   const graph = [
     {
-      "@type": "WebPage",
-      "@id": `${canonicalUrl}#webpage`,
-      url: canonicalUrl,
-      name: page.title,
-      description: page.description,
-      isPartOf: { "@id": `${siteUrl}/#website` },
-      about: { "@id": personId },
-      inLanguage: "en",
+      "@type": "WebSite", "@id": `${siteUrl}/#website`, url: `${siteUrl}/`,
+      name: `${profile.name} Portfolio`, inLanguage: "en", publisher: { "@id": personId },
+    },
+    {
+      "@type": "Person", "@id": personId, name: profile.name, url: `${siteUrl}/`,
+      description: "Aspiring business analyst and fourth-year IT for Business undergraduate at NIBM, in collaboration with Coventry University, England.",
+      image: `${siteUrl}/janudha-profile.jpg`,
+      homeLocation: { "@type": "Place", name: profile.location },
+      sameAs: [profile.linkedin],
+      knowsLanguage: profile.languages,
+      knowsAbout: skills.flatMap(group => group.items),
+    },
+    {
+      "@type": path === "/about" || path === "/" ? "ProfilePage" : path === "/contact" ? "ContactPage" : path === "/projects" || path === "/posts" ? "CollectionPage" : "WebPage",
+      "@id": `${canonicalUrl}#webpage`, url: canonicalUrl, name: page.title,
+      description: page.description, isPartOf: { "@id": `${siteUrl}/#website` },
+      about: { "@id": personId }, inLanguage: "en",
+      ...(["/", "/about"].includes(path) ? { mainEntity: { "@id": personId } } : {}),
     },
     {
       "@type": "BreadcrumbList",
       itemListElement: [
         { "@type": "ListItem", position: 1, name: "Home", item: `${siteUrl}/` },
-        ...(path === "/"
-          ? []
-          : [{ "@type": "ListItem", position: 2, name: page.heading, item: canonicalUrl }]),
+        ...(path === "/" ? [] : [{ "@type": "ListItem", position: 2, name: page.heading, item: canonicalUrl }]),
       ],
     },
   ];
 
   if (path === "/projects") {
     graph.push({
-      "@type": "ItemList",
-      name: "Selected software projects",
-      numberOfItems: 5,
-      itemListElement: [
-        ["Healthcare Microservices Platform", "Spring Boot, Docker, and Kubernetes healthcare platform"],
-        ["Quizora", "Online exam management system"],
-        ["Cey Harvest", "Agriculture logistics and information platform"],
-        ["Animal Hospital Inventory", "MERN inventory and automated reordering system"],
-        ["Cypress Test Suite", "Automated web and API testing suite"],
-      ].map(([name, description], index) => ({
-        "@type": "ListItem",
-        position: index + 1,
+      "@type": "ItemList", "@id": `${canonicalUrl}#projects`, name: "Selected business and technology projects",
+      numberOfItems: projects.length,
+      itemListElement: projects.map((project, index) => ({
+        "@type": "ListItem", position: index + 1,
         item: {
-          "@type": "SoftwareSourceCode",
-          name,
-          description,
-          author: { "@id": personId },
-          programmingLanguage: ["JavaScript", "Java"],
+          "@type": "CreativeWork", name: project.title, description: project.description,
+          url: `${canonicalUrl}#project-${index + 1}`, creator: { "@id": personId },
+          keywords: project.tags.join(", "),
         },
       })),
     });
-  }
-
-  if (path === "/about") {
-    graph[0]["@type"] = "ProfilePage";
-    graph[0].mainEntity = { "@id": personId };
+    graph[2].mainEntity = { "@id": `${canonicalUrl}#projects` };
   }
 
   if (path === "/posts") {
-    const blogId = `${canonicalUrl}#blog`;
-    graph[0]["@type"] = "CollectionPage";
-    graph[0].mainEntity = { "@id": blogId };
     graph.push({
-      "@type": "Blog",
-      "@id": blogId,
-      url: canonicalUrl,
-      name: page.heading,
-      description: page.description,
-      author: { "@id": personId },
-      publisher: { "@id": personId },
-      inLanguage: "en",
+      "@type": "Blog", "@id": `${canonicalUrl}#blog`, url: canonicalUrl,
+      name: page.heading, description: page.description, author: { "@id": personId },
+      publisher: { "@id": personId }, inLanguage: "en",
     });
+    graph[2].mainEntity = { "@id": `${canonicalUrl}#blog` };
   }
-
   return { "@context": "https://schema.org", "@graph": graph };
 }

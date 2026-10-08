@@ -153,7 +153,7 @@ export async function handler(event) {
       if ((await getReplyDepth(sql, parentReplyId)) >= 8) {
         return response(400, { error: "This conversation has reached its maximum reply depth." });
       }
-      const adminName = cleanText(process.env.POSTS_ADMIN_NAME, 60) || "Aenuka";
+      const adminName = cleanText(process.env.POSTS_ADMIN_NAME, 60) || "Janudha";
       const [reply] = await sql`
         INSERT INTO post_replies (post_id, name, message, parent_reply_id, is_admin)
         VALUES (${parent.post_id}, ${adminName}, ${message}, ${parentReplyId}, TRUE)

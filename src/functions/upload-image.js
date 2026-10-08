@@ -37,11 +37,11 @@ export async function handler(event) {
     if (!image?.startsWith("data:image/")) return json(400, { error: "Choose a valid image." });
     const form = new FormData();
     form.append("file", image);
-    form.append("folder", "aenuka-posts");
+    form.append("folder", "janudha-posts");
     if (apiKey && apiSecret) {
       const timestamp = Math.floor(Date.now() / 1000).toString();
       const signature = createHash("sha1")
-        .update(`folder=aenuka-posts&timestamp=${timestamp}${apiSecret}`)
+        .update(`folder=janudha-posts&timestamp=${timestamp}${apiSecret}`)
         .digest("hex");
       form.append("api_key", apiKey);
       form.append("timestamp", timestamp);

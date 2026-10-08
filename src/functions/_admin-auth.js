@@ -37,8 +37,8 @@ export function adminSessionToken(event) {
   const cookie = cookieHeader
     .split(";")
     .map((part) => part.trim())
-    .find((part) => part.startsWith("aenuka_admin_session="));
-  if (cookie) return decodeURIComponent(cookie.slice("aenuka_admin_session=".length));
+    .find((part) => part.startsWith("janudha_admin_session="));
+  if (cookie) return decodeURIComponent(cookie.slice("janudha_admin_session=".length));
 
   const authorization = event.headers?.authorization || event.headers?.Authorization || "";
   return authorization.startsWith("Bearer ") ? authorization.slice(7).trim() : "";

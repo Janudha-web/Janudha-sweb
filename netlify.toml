@@ -38,6 +38,16 @@
   status = 200
 
 [[redirects]]
-  from = "/*"
-  to = "/index.html"
+  from = "/admin"
+  to = "/admin/index.html"
   status = 200
+
+[[redirects]]
+  from = "/admin/dashboard"
+  to = "/admin/dashboard/index.html"
+  status = 200
+
+[[redirects]]
+  from = "/*"
+  to = "/404.html"
+  status = 404

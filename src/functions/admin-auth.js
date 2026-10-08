@@ -37,17 +37,17 @@ function requesterIp(event) {
 function sessionCookie(event, token, maxAge) {
   const host = String(event.headers?.host || "");
   const secure = host.includes("localhost") || host.startsWith("127.0.0.1") ? "" : "; Secure";
-  return `aenuka_admin_session=${encodeURIComponent(token)}; HttpOnly; SameSite=Strict; Path=/; Max-Age=${maxAge}${secure}`;
+  return `janudha_admin_session=${encodeURIComponent(token)}; HttpOnly; SameSite=Strict; Path=/; Max-Age=${maxAge}${secure}`;
 }
 
 function otpEmail(code) {
   return {
-    subject: `${code} is your Aenuka admin verification code`,
-    text: `Your Aenuka admin verification code is ${code}. It expires in 15 minutes. If you requested more than one code, any unexpired code will work until you sign in. If you did not request this code, you can ignore this email.`,
+    subject: `${code} is your Janudha admin verification code`,
+    text: `Your Janudha admin verification code is ${code}. It expires in 15 minutes. If you requested more than one code, any unexpired code will work until you sign in. If you did not request this code, you can ignore this email.`,
     html: `
       <div style="background:#f5f5f7;padding:40px 20px;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;color:#1d1d1f">
         <div style="max-width:520px;margin:0 auto;background:#fff;border-radius:24px;padding:36px;text-align:center">
-          <div style="font-size:13px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:#0071e3">Aenuka Admin</div>
+          <div style="font-size:13px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:#0071e3">Janudha Admin</div>
           <h1 style="font-size:28px;letter-spacing:-.03em;margin:18px 0 8px">Verification code</h1>
           <p style="color:#6e6e73;line-height:1.6;margin:0">Use this one-time code to sign in. It expires in 15 minutes.</p>
           <div style="font-size:38px;font-weight:700;letter-spacing:.2em;margin:30px 0;color:#1d1d1f">${code}</div>

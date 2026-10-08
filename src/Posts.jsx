@@ -144,7 +144,7 @@ function ReplyThread({ reply, replies, postId, onAdded, depth = 0 }) {
     <div className={`rounded-2xl px-4 py-3 ${reply.is_admin ? "border border-blue/10 bg-blue/[.045]" : "bg-mist"}`}>
       <div className="flex flex-wrap items-center gap-x-2">
         <span className="text-sm font-semibold">{reply.name || "Anonymous"}</span>
-        {reply.is_admin && <span className="rounded-full bg-blue/10 px-2 py-0.5 text-[10px] font-semibold uppercase tracking-wide text-blue">Aenuka</span>}
+        {reply.is_admin && <span className="rounded-full bg-blue/10 px-2 py-0.5 text-[10px] font-semibold uppercase tracking-wide text-blue">Janudha</span>}
         <time className="text-[11px] text-black/35">{friendlyDate(reply.created_at)}</time>
       </div>
       <p className="mt-1 whitespace-pre-wrap text-sm leading-relaxed text-black/65">{reply.message}</p>
@@ -277,10 +277,10 @@ export function Posts() {
     }} onReplyAdded={(reply) => addReply(selectedPost.id, reply)}/>;
   }
 
-  return <main className="page-enter min-h-screen bg-mist pt-14">
+  return <main className="portfolio-posts page-enter min-h-screen bg-mist pt-14">
     <section className="shell py-20 text-center md:py-28">
       <p className="eyebrow">Notes & updates</p>
-      <h1 className="headline mx-auto mt-5 max-w-4xl">Posts</h1>
+      <h1 className="headline mx-auto mt-5 max-w-4xl">Ideas in progress.</h1>
       <p className="mx-auto mt-6 max-w-xl text-lg leading-relaxed text-black/50">
         Ideas, progress, and things worth sharing. Join the conversation—your name is optional.
       </p>

@@ -14,7 +14,7 @@
 @layer components {
   .shell { @apply mx-auto w-full max-w-[1200px] px-5 md:px-8; }
   .eyebrow { @apply text-xs font-semibold uppercase tracking-[.18em] text-blue; }
-  .display { @apply text-[clamp(3.1rem,8vw,7.3rem)] font-semibold leading-[.92] tracking-[-.065em]; }
+  .display { @apply text-[clamp(2.4rem,8vw,7.3rem)] font-semibold leading-[.92] tracking-[-.065em]; }
   .headline { @apply text-[clamp(2.5rem,6vw,5.3rem)] font-semibold leading-[.96] tracking-[-.055em]; }
   .glass { @apply border border-white/60 bg-white/75 backdrop-blur-xl; }
   .button-primary { @apply inline-flex items-center justify-center gap-2 rounded-full bg-blue px-6 py-3 text-sm font-medium text-white transition hover:bg-[#0077ed] hover:shadow-lg hover:shadow-blue/20; }
