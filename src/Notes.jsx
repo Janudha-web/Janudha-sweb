@@ -14,7 +14,7 @@ import sql from "highlight.js/lib/languages/sql";
 import {
   Bold, Italic, Heading1, Heading2, Table2, ImagePlus, Send, MessageCircle,
   LoaderCircle, Pencil, Trash2, LockKeyhole, Plus, X, LogOut, ShieldCheck, Mail, KeyRound,
-  ChevronDown, ChevronUp, BookOpen, Code2, Youtube, AlignLeft, AlignCenter, AlignRight,
+  ChevronDown, BookOpen, Code2, Youtube, AlignLeft, AlignCenter, AlignRight,
   List, ListOrdered, Search,
 } from "lucide-react";
 
@@ -90,10 +90,10 @@ function escapeHtml(value) {
     .replace(/"/g, "&quot;");
 }
 
-async function getPosts() {
+async function getNotes() {
   const response = await fetch(endpoint);
   const data = await response.json().catch(() => ({}));
-  if (!response.ok) throw new Error(data.error || "Could not load posts.");
+  if (!response.ok) throw new Error(data.error || "Could not load notes.");
   return data.posts || [];
 }
 
@@ -173,7 +173,7 @@ function CollapsiblePostContent({ post, onOpen }) {
       <div className="pointer-events-none absolute inset-x-0 bottom-0 h-8 bg-gradient-to-t from-mist to-transparent"/>
     </div>
     <button type="button" onClick={onOpen} className="mt-4 inline-flex items-center gap-2 rounded-full bg-blue/10 px-4 py-2 text-sm font-semibold text-blue transition hover:bg-blue/15">
-      <BookOpen size={16}/> View post
+      <BookOpen size={16}/> View note
     </button>
   </div>;
 }
@@ -195,7 +195,7 @@ function FullPost({ post, onBack, onReplyAdded }) {
   return <>
     <div className="fixed bottom-5 left-5 z-[80] md:bottom-8 md:left-8">
       <button type="button" onClick={onBack} className="button-secondary border-black/10 bg-white/95 px-4 py-2.5 text-sm shadow-xl shadow-black/15 backdrop-blur-xl hover:bg-white">
-        <ChevronDown className="rotate-90" size={16}/> All posts
+        <ChevronDown className="rotate-90" size={16}/> All notes
       </button>
     </div>
     <main className="page-enter min-h-screen bg-white pt-14">
@@ -240,25 +240,25 @@ function CommentsSection({ post, onAdded }) {
   </section>;
 }
 
-export function Posts() {
-  const [posts, setPosts] = useState([]);
+export function Notes() {
+  const [posts, setNotes] = useState([]);
   const [selectedPostId, setSelectedPostId] = useState(null);
   const [searchQuery, setSearchQuery] = useState("");
   const [state, setState] = useState({ loading: true, error: "" });
   useEffect(() => {
-    getPosts().then((items) => {
-      setPosts(items);
+    getNotes().then((items) => {
+      setNotes(items);
       setState({ loading: false, error: "" });
     }).catch((error) => setState({ loading: false, error: error.message }));
   }, []);
 
   function addReply(postId, reply) {
-    setPosts((items) => items.map((post) =>
+    setNotes((items) => items.map((post) =>
       post.id === postId ? { ...post, replies: [...(post.replies || []), reply] } : post
     ));
   }
 
-  const filteredPosts = useMemo(() => {
+  const filteredNotes = useMemo(() => {
     const query = searchQuery.trim().toLowerCase();
     if (!query) return posts;
     return posts.filter((post) => {
@@ -288,23 +288,23 @@ export function Posts() {
     <section className="shell max-w-[720px] pb-24">
       <label className="relative mx-auto mb-8 block max-w-lg">
         <Search className="pointer-events-none absolute left-4 top-1/2 -translate-y-1/2 text-black/30" size={16}/>
-        <input type="search" value={searchQuery} onChange={(event) => setSearchQuery(event.target.value)} className="post-search w-full py-3 pl-10 pr-11 text-sm" placeholder="Search posts" aria-label="Search posts by title or content"/>
+        <input type="search" value={searchQuery} onChange={(event) => setSearchQuery(event.target.value)} className="post-search w-full py-3 pl-10 pr-11 text-sm" placeholder="Search notes" aria-label="Search notes by title or content"/>
         {searchQuery && <button type="button" onClick={() => setSearchQuery("")} className="absolute right-2.5 top-1/2 flex h-7 w-7 -translate-y-1/2 items-center justify-center rounded-full text-black/30 transition hover:bg-black/[.06] hover:text-black/60" aria-label="Clear search"><X size={14}/></button>}
       </label>
       {state.loading && <div className="flex justify-center py-20"><LoaderCircle className="animate-spin text-blue"/></div>}
       {state.error && <div className="rounded-2xl bg-white p-8 text-center text-red-600">{state.error}</div>}
       {!state.loading && !state.error && posts.length === 0 && <div className="rounded-[2rem] bg-white px-7 py-20 text-center">
         <MessageCircle className="mx-auto text-black/20" size={38}/>
-        <h2 className="mt-5 text-2xl font-semibold tracking-tight">Nothing posted yet</h2>
+        <h2 className="mt-5 text-2xl font-semibold tracking-tight">No notes yet</h2>
         <p className="mt-2 text-black/45">The first update will appear here.</p>
       </div>}
-      {!state.loading && !state.error && posts.length > 0 && filteredPosts.length === 0 && <div className="rounded-[2rem] bg-white px-7 py-16 text-center">
+      {!state.loading && !state.error && posts.length > 0 && filteredNotes.length === 0 && <div className="rounded-[2rem] bg-white px-7 py-16 text-center">
         <Search className="mx-auto text-black/20" size={34}/>
-        <h2 className="mt-4 text-xl font-semibold">No matching posts</h2>
+        <h2 className="mt-4 text-xl font-semibold">No matching notes</h2>
         <p className="mt-2 text-sm text-black/45">Try a different title, keyword, or phrase.</p>
       </div>}
       <div className="space-y-6">
-        {filteredPosts.map((post) => <article key={post.id} className="overflow-hidden rounded-[2rem] bg-white shadow-sm shadow-black/[.03]">
+        {filteredNotes.map((post) => <article key={post.id} className="overflow-hidden rounded-[2rem] bg-white shadow-sm shadow-black/[.03]">
           {post.image_url && <img src={post.image_url} alt="" className="max-h-[360px] w-full bg-black/[.02] object-cover" />}
           <div className="p-5 md:p-7">
             <time className="text-xs font-medium uppercase tracking-[.12em] text-black/35">{friendlyDate(post.created_at)}</time>
@@ -964,11 +964,11 @@ function RichEditor({ value, onChange }) {
   </div>;
 }
 
-export function AdminPosts() {
+export function AdminNotes() {
   const navigate = useNavigate();
   const [adminView, setAdminView] = useState("create");
   const [authChecking, setAuthChecking] = useState(true);
-  const [posts, setPosts] = useState([]);
+  const [posts, setNotes] = useState([]);
   const [draft, setDraft] = useState(blankPost);
   const [editingId, setEditingId] = useState(null);
   const [imagePreview, setImagePreview] = useState("");
@@ -991,8 +991,8 @@ export function AdminPosts() {
   }, [navigate]);
 
   useEffect(() => {
-    getPosts().then((items) => {
-      setPosts(items);
+    getNotes().then((items) => {
+      setNotes(items);
       setState((old) => ({ ...old, loading: false }));
     }).catch((error) => setState((old) => ({ ...old, loading: false, error: error.message })));
   }, []);
@@ -1047,7 +1047,7 @@ export function AdminPosts() {
   async function save(event) {
     event.preventDefault();
     if (!draft.content.replace(/<[^>]*>/g, "").trim()) {
-      setState((old) => ({ ...old, error: "Add some post content." }));
+      setState((old) => ({ ...old, error: "Add some note content." }));
       return;
     }
     setState((old) => ({ ...old, saving: true, error: "", message: "" }));
@@ -1058,28 +1058,28 @@ export function AdminPosts() {
         body: JSON.stringify(draft),
       });
       const data = await response.json().catch(() => ({}));
-      if (!response.ok) throw new Error(data.error || "Could not save the post.");
-      setPosts((items) => editingId
+      if (!response.ok) throw new Error(data.error || "Could not save the note.");
+      setNotes((items) => editingId
         ? items.map((post) => post.id === editingId ? { ...post, ...data.post } : post)
         : [{ ...data.post, replies: [] }, ...items]);
       resetDraft();
       setAdminView("manage");
-      setState((old) => ({ ...old, saving: false, message: editingId ? "Post updated." : "Post published." }));
+      setState((old) => ({ ...old, saving: false, message: editingId ? "Note updated." : "Note published." }));
     } catch (error) {
       setState((old) => ({ ...old, saving: false, error: error.message }));
     }
   }
 
   async function remove(id) {
-    if (!window.confirm("Delete this post and all its replies?")) return;
+    if (!window.confirm("Delete this note and all its replies?")) return;
     setState((old) => ({ ...old, error: "", message: "" }));
     try {
       const response = await fetch(`${endpoint}?id=${id}`, { method: "DELETE", headers: authHeaders() });
       const data = await response.json().catch(() => ({}));
-      if (!response.ok) throw new Error(data.error || "Could not delete the post.");
-      setPosts((items) => items.filter((post) => post.id !== id));
+      if (!response.ok) throw new Error(data.error || "Could not delete the note.");
+      setNotes((items) => items.filter((post) => post.id !== id));
       if (editingId === id) resetDraft();
-      setState((old) => ({ ...old, message: "Post deleted." }));
+      setState((old) => ({ ...old, message: "Note deleted." }));
     } catch (error) {
       setState((old) => ({ ...old, error: error.message }));
     }
@@ -1098,7 +1098,7 @@ export function AdminPosts() {
       });
       const data = await response.json().catch(() => ({}));
       if (!response.ok) throw new Error(data.error || "Could not send your reply.");
-      setPosts((items) => items.map((post) =>
+      setNotes((items) => items.map((post) =>
         post.id === postId ? { ...post, replies: [...(post.replies || []), data.reply] } : post
       ));
       setReplyingTo(null);
@@ -1119,7 +1119,7 @@ export function AdminPosts() {
       });
       const data = await response.json().catch(() => ({}));
       if (!response.ok) throw new Error(data.error || "Could not delete the reply.");
-      setPosts((items) => items.map((post) => post.id === postId
+      setNotes((items) => items.map((post) => post.id === postId
         ? { ...post, replies: removeReplyBranch(post.replies || [], replyId) }
         : post
       ));
@@ -1148,9 +1148,9 @@ export function AdminPosts() {
     .filter((reply) => !reply.is_admin)
     .map((reply) => ({ post, reply })));
   const navItems = [
-    ["create", Plus, editingId ? "Edit post" : "Create post"],
-    ["view", BookOpen, "View posts"],
-    ["manage", Pencil, "Manage posts"],
+    ["create", Plus, editingId ? "Edit note" : "Create note"],
+    ["view", BookOpen, "View notes"],
+    ["manage", Pencil, "Manage notes"],
     ["comments", MessageCircle, "Comments"],
   ];
 
@@ -1173,7 +1173,7 @@ export function AdminPosts() {
             </button>)}
           </nav>
           <div className="ml-auto flex gap-2 lg:ml-0 lg:mt-auto lg:block lg:w-full lg:space-y-2">
-            <button type="button" onClick={() => navigate("/posts")} className="flex h-11 w-11 items-center justify-center rounded-xl text-white/55 transition hover:bg-white/10 hover:text-white lg:mx-auto" title="Public posts" aria-label="Public posts"><BookOpen size={19}/><span className="sr-only">Public posts</span></button>
+            <button type="button" onClick={() => navigate("/notes")} className="flex h-11 w-11 items-center justify-center rounded-xl text-white/55 transition hover:bg-white/10 hover:text-white lg:mx-auto" title="Public notes" aria-label="Public notes"><BookOpen size={19}/><span className="sr-only">Public notes</span></button>
             <button type="button" onClick={logout} className="flex h-11 w-11 items-center justify-center rounded-xl text-red-300 transition hover:bg-red-500/10 lg:mx-auto" title="Log out" aria-label="Log out"><LogOut size={19}/><span className="sr-only">Log out</span></button>
           </div>
         </div>
@@ -1186,31 +1186,31 @@ export function AdminPosts() {
           {adminView === "create" && <>
             <div className="mb-8">
               <p className="eyebrow">{editingId ? "Update published content" : "Write something new"}</p>
-              <h2 className="mt-3 text-4xl font-semibold tracking-[-.045em] md:text-5xl">{editingId ? "Edit post" : "Create post"}</h2>
+              <h2 className="mt-3 text-4xl font-semibold tracking-[-.045em] md:text-5xl">{editingId ? "Edit note" : "Create note"}</h2>
             </div>
             <form onSubmit={save} className="rounded-[2rem] bg-white p-6 shadow-sm md:p-8">
               <label className="block text-sm font-semibold">Title
-                <input required maxLength="160" value={draft.title} onChange={(e) => setDraft({ ...draft, title: e.target.value })} className="post-input mt-2 w-full text-lg" placeholder="Give your post a title"/>
+                <input required maxLength="160" value={draft.title} onChange={(e) => setDraft({ ...draft, title: e.target.value })} className="post-input mt-2 w-full text-lg" placeholder="Give your note a title"/>
               </label>
-              <div className="mt-6"><span className="text-sm font-semibold">Post content</span><div className="mt-2"><RichEditor value={draft.content} onChange={(content) => setDraft({ ...draft, content })}/></div></div>
+              <div className="mt-6"><span className="text-sm font-semibold">Note content</span><div className="mt-2"><RichEditor value={draft.content} onChange={(content) => setDraft({ ...draft, content })}/></div></div>
               <div className="mt-6">
                 <span className="text-sm font-semibold">Cover image</span>
                 {imagePreview ? <div className="relative mt-2 overflow-hidden rounded-2xl bg-mist">
-                  <img src={imagePreview} alt="Post preview" className="max-h-80 w-full object-cover"/>
+                  <img src={imagePreview} alt="Note preview" className="max-h-80 w-full object-cover"/>
                   <button type="button" onClick={() => { setImagePreview(""); setDraft({ ...draft, imageUrl: "" }); }} className="absolute right-3 top-3 rounded-full bg-black/70 p-2 text-white" aria-label="Remove image"><X size={16}/></button>
                   {state.uploading && <div className="absolute inset-0 flex items-center justify-center bg-black/45 text-sm font-medium text-white"><LoaderCircle className="mr-2 animate-spin" size={18}/>Uploading…</div>}
                 </div> : <label className="mt-2 flex cursor-pointer items-center justify-center gap-2 rounded-2xl border border-dashed py-10 text-sm font-medium text-black/50 transition hover:border-blue hover:text-blue"><ImagePlus size={20}/>Choose an image (max 4 MB)<input type="file" accept="image/*" onChange={upload} className="sr-only"/></label>}
               </div>
               <div className="mt-7 flex flex-wrap gap-3">
-                <button disabled={state.saving || state.uploading} className="button-primary disabled:opacity-50">{state.saving ? <LoaderCircle className="animate-spin" size={17}/> : editingId ? <Pencil size={16}/> : <Plus size={17}/>} {state.saving ? "Saving…" : editingId ? "Save changes" : "Publish post"}</button>
+                <button disabled={state.saving || state.uploading} className="button-primary disabled:opacity-50">{state.saving ? <LoaderCircle className="animate-spin" size={17}/> : editingId ? <Pencil size={16}/> : <Plus size={17}/>} {state.saving ? "Saving…" : editingId ? "Save changes" : "Publish note"}</button>
                 {editingId && <button type="button" onClick={() => { resetDraft(); setAdminView("manage"); }} className="button-secondary">Cancel</button>}
               </div>
             </form>
           </>}
 
           {adminView === "view" && <>
-            <div className="mb-8"><p className="eyebrow">Published content</p><h2 className="mt-3 text-4xl font-semibold tracking-[-.045em] md:text-5xl">View posts</h2></div>
-            {state.loading ? <LoaderCircle className="animate-spin text-blue"/> : posts.length === 0 ? <div className="rounded-[2rem] bg-white p-10 text-center text-black/40">No published posts yet.</div> : <div className="space-y-6">
+            <div className="mb-8"><p className="eyebrow">Published content</p><h2 className="mt-3 text-4xl font-semibold tracking-[-.045em] md:text-5xl">View notes</h2></div>
+            {state.loading ? <LoaderCircle className="animate-spin text-blue"/> : posts.length === 0 ? <div className="rounded-[2rem] bg-white p-10 text-center text-black/40">No published notes yet.</div> : <div className="space-y-6">
               {posts.map((post) => <article key={post.id} className="overflow-hidden rounded-[2rem] bg-white shadow-sm">
                 {post.image_url && <img src={post.image_url} alt="" className="max-h-[420px] w-full object-cover"/>}
                 <div className="p-6 md:p-8"><time className="text-xs uppercase tracking-wider text-black/35">{friendlyDate(post.created_at)}</time><h3 className="mt-2 text-3xl font-semibold tracking-tight">{post.title}</h3><div className="rich-content mt-5" dangerouslySetInnerHTML={{ __html: preparePostHtml(post.content) }}/></div>
@@ -1219,8 +1219,8 @@ export function AdminPosts() {
           </>}
 
           {adminView === "manage" && <>
-            <div className="mb-8 flex items-end justify-between gap-4"><div><p className="eyebrow">Published content</p><h2 className="mt-3 text-4xl font-semibold tracking-[-.045em] md:text-5xl">Manage posts</h2></div><button type="button" onClick={() => { resetDraft(); setAdminView("create"); }} className="button-primary shrink-0"><Plus size={17}/>New post</button></div>
-            {state.loading ? <LoaderCircle className="animate-spin text-blue"/> : posts.length === 0 ? <div className="rounded-[2rem] bg-white p-10 text-center text-black/40">No posts to manage.</div> : <div className="overflow-hidden rounded-[2rem] bg-white shadow-sm">
+            <div className="mb-8 flex items-end justify-between gap-4"><div><p className="eyebrow">Published content</p><h2 className="mt-3 text-4xl font-semibold tracking-[-.045em] md:text-5xl">Manage notes</h2></div><button type="button" onClick={() => { resetDraft(); setAdminView("create"); }} className="button-primary shrink-0"><Plus size={17}/>New note</button></div>
+            {state.loading ? <LoaderCircle className="animate-spin text-blue"/> : posts.length === 0 ? <div className="rounded-[2rem] bg-white p-10 text-center text-black/40">No notes to manage.</div> : <div className="overflow-hidden rounded-[2rem] bg-white shadow-sm">
               {posts.map((post, index) => <div key={post.id} className={`flex flex-col gap-4 p-5 sm:flex-row sm:items-center ${index ? "border-t" : ""}`}>
                 {post.image_url ? <img src={post.image_url} alt="" className="h-20 w-full rounded-xl object-cover sm:w-28"/> : <div className="flex h-20 w-full items-center justify-center rounded-xl bg-mist text-black/20 sm:w-28"><BookOpen size={22}/></div>}
                 <div className="min-w-0 flex-1"><h3 className="line-clamp-2 font-semibold">{post.title}</h3><p className="mt-1 text-xs text-black/35">{friendlyDate(post.created_at)} · {(post.replies || []).length} comments</p></div>

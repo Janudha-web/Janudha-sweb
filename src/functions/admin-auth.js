@@ -1,7 +1,7 @@
 import "dotenv/config";
 import { createHmac, randomBytes, randomInt, timingSafeEqual } from "node:crypto";
 import { neon } from "@neondatabase/serverless";
-import nodemailer from "nodemailer";
+import { createMailer, emailSettings } from "./_email.js";
 import { adminSessionToken, hashAdminToken, setupAdminAuth, verifyAdminSession } from "./_admin-auth.js";
 
 const headers = {
@@ -58,13 +58,12 @@ function otpEmail(code) {
   };
 }
 
-export async function handler(event) {
+async function handleEvent(event, database) {
   if (event.httpMethod !== "POST") return response(405, { error: "Method not allowed." });
 
   const connectionString = process.env.NEON_DB_URL || process.env.DATABASE_URL || process.env.POSTGRES_URL;
   const adminEmail = normalizeEmail(process.env.ADMIN_EMAIL);
-  const mailUser = process.env.EMAIL_USER;
-  const mailPass = process.env.EMAIL_PASS;
+  const { user: mailUser, pass: mailPass } = emailSettings();
   const otpSecret = process.env.OTP_SECRET;
   if (!connectionString || !adminEmail || !mailUser || !mailPass || !otpSecret) {
     return response(500, { error: "Admin email verification is not fully configured." });
@@ -77,7 +76,7 @@ export async function handler(event) {
     return response(400, { error: "Invalid request." });
   }
 
-  const sql = neon(connectionString);
+  const sql = database(connectionString);
   try {
     await setupAdminAuth(sql);
     await sql`DELETE FROM admin_otp_codes WHERE expires_at < NOW() - INTERVAL '1 day'`;
@@ -115,19 +114,17 @@ export async function handler(event) {
         RETURNING id
       `;
 
-      const transporter = nodemailer.createTransport({
-        service: "gmail",
-        auth: { user: mailUser, pass: mailPass },
-      });
+      const transporter = createMailer();
       try {
-        await transporter.sendMail({
+        const delivery = await transporter.sendMail({
           from: mailUser,
           to: adminEmail,
           ...otpEmail(code),
         });
+        if (!delivery.accepted?.length) throw new Error("Recipient was not accepted.");
       } catch (error) {
         await sql`DELETE FROM admin_otp_codes WHERE id=${record.id}`;
-        console.error("Admin OTP email failed:", error);
+        console.error("Admin OTP email failed:", error.code || "SMTP_ERROR");
         return response(502, { error: "The verification email could not be sent." });
       }
 
@@ -199,6 +196,12 @@ export async function handler(event) {
     return response(400, { error: "Unknown action." });
   } catch (error) {
     console.error("Admin auth function error:", error);
-    return response(500, { error: error.message || "Authentication failed." });
+    return response(500, { error: "Authentication is temporarily unavailable. Please try again." });
   }
 }
+
+export function createAdminAuthHandler({ database = neon } = {}) {
+  return event => handleEvent(event, database);
+}
+
+export const handler = createAdminAuthHandler();

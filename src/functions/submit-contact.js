@@ -1,124 +1,71 @@
 import "dotenv/config";
 import { neon } from "@neondatabase/serverless";
-import nodemailer from "nodemailer";
+import { createMailer, emailSettings } from "./_email.js";
+
+const response = (statusCode, data) => ({
+  statusCode,
+  headers: { "Content-Type": "application/json", "Cache-Control": "no-store" },
+  body: JSON.stringify(data),
+});
+
+function escapeHtml(value) {
+  return value.replace(/[&<>"']/g, character => ({
+    "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;",
+  })[character]);
+}
 
 export async function handler(event) {
-  if (event.httpMethod !== 'POST') {
-    return { statusCode: 405, body: 'Method Not Allowed' };
-  }
-
+  if (event.httpMethod !== "POST") return response(405, { error: "Method not allowed." });
   let data;
   try {
-    data = JSON.parse(event.body);
+    data = JSON.parse(event.body || "{}");
   } catch {
-    return { statusCode: 400, body: 'Invalid JSON' };
+    return response(400, { error: "Invalid request." });
+  }
+  if (!data || typeof data !== "object") return response(400, { error: "Invalid request." });
+
+  const name = typeof data.name === "string" ? data.name.trim() : "";
+  const email = typeof data.email === "string" ? data.email.trim() : "";
+  const message = typeof data.message === "string" ? data.message.trim() : "";
+  if (!name || name.length > 100 || /[\r\n]/.test(name)
+    || email.length > 254 || !/^[^\s@<>]+@[^\s@<>]+\.[^\s@<>]+$/.test(email)
+    || !message || message.length > 5000) {
+    return response(400, { error: "Enter your name, a valid email address, and a message of up to 5,000 characters." });
   }
 
-  const { name, email, message } = data;
-  if (!name || !email || !message) {
-    return { statusCode: 400, body: 'Missing required fields' };
+  const { user, pass, recipient } = emailSettings();
+  if (!user || !pass || !recipient) {
+    return response(503, { error: "The contact form is temporarily unavailable. Please contact me directly by email." });
+  }
+
+  // Email delivery works independently of the optional database archive.
+  try {
+    const result = await createMailer().sendMail({
+      from: { name: "Janudha Website", address: user },
+      to: recipient,
+      replyTo: email,
+      subject: `New portfolio message from ${name}`,
+      text: `From: ${name} <${email}>\n\n${message}`,
+      html: `<div style="background:#f5f5f7;padding:32px;font-family:Arial,sans-serif;color:#1d1d1f"><div style="max-width:600px;margin:auto;background:white;border-radius:20px;padding:32px"><img src="https://janudha.com/janulogo.png" alt="Janudha" width="48" height="48" style="border-radius:12px"><h1 style="font-size:24px">New contact message</h1><p><strong>${escapeHtml(name)}</strong><br>${escapeHtml(email)}</p><div style="white-space:pre-wrap;line-height:1.7;border-top:1px solid #eee;padding-top:20px">${escapeHtml(message)}</div></div></div>`,
+    });
+    if (!result.accepted?.length) throw new Error("Recipient was not accepted.");
+  } catch (error) {
+    console.error("Contact email delivery failed:", error.code || "SMTP_ERROR");
+    return response(502, { error: "Your message couldn’t be sent. Please try again or contact me directly by email." });
   }
 
   const connectionString = process.env.NEON_DB_URL || process.env.DATABASE_URL || process.env.POSTGRES_URL;
-
-  if (!connectionString) {
-    return { statusCode: 500, body: 'Database connection string is not configured' };
-  }
-
-  const sql = neon(connectionString);
-
-  try {
-    await sql`
-      CREATE TABLE IF NOT EXISTS contact_messages (
-        id SERIAL PRIMARY KEY,
-        name TEXT NOT NULL,
-        email TEXT NOT NULL,
-        message TEXT NOT NULL,
-        created_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
-      )
-    `;
-
-    await sql`
-      INSERT INTO contact_messages (name, email, message)
-      VALUES (${name}, ${email}, ${message})
-    `;
-
-    const mailUser = process.env.EMAIL_USER;
-    const mailPass = process.env.EMAIL_PASS;
-    const adminEmail = process.env.ADMIN_EMAIL;
-    const logoUrl = 'https://janudha.com/janulogo.png';
-
-    let emailWarning = null;
-
-    if (mailUser && mailPass && adminEmail) {
-      const transporter = nodemailer.createTransport({
-        service: 'gmail',
-        auth: {
-          user: mailUser,
-          pass: mailPass,
-        },
-      });
-
-      try {
-        await transporter.sendMail({
-          from: mailUser,
-          to: adminEmail,
-          replyTo: email,
-          subject: `New message for ${adminEmail} from ${name}`,
-          text: `To: ${adminEmail}\nFrom: ${name} <${email}>\n\nMessage:\n${message}`,
-          html: `
-            <div style="font-family: Arial, sans-serif; background:#f9fafb; padding:24px; color:#111827;">
-              <div style="max-width:640px; margin:0 auto; background:#ffffff; border:1px solid #f3f4f6; border-radius:16px; overflow:hidden; box-shadow:0 8px 24px rgba(0,0,0,0.08);">
-                <div style="background:#fff; border-bottom:1px solid #fee2e2; padding:20px 24px; text-align:center;">
-                  <img src="${logoUrl}" alt="Janudha Kendangamuwa" style="width:72px; height:72px; object-fit:cover; border-radius:12px; display:block; margin:0 auto 12px;" />
-                  <div style="font-size:18px; font-weight:700; color:#dc2626;">Janudha Kendangamuwa</div>
-                  <div style="font-size:13px; color:#6b7280;">New contact message received</div>
-                </div>
-
-                <div style="padding:24px;">
-                  <div style="margin-bottom:16px; padding:14px 16px; background:#fef2f2; border:1px solid #fecaca; border-radius:12px;">
-                    <div style="font-size:12px; text-transform:uppercase; letter-spacing:0.08em; color:#b91c1c; font-weight:700; margin-bottom:6px;">Recipient</div>
-                    <div style="font-size:15px; color:#111827; font-weight:600;">${adminEmail}</div>
-                  </div>
-
-                  <div style="margin-bottom:14px;">
-                    <div style="font-size:12px; text-transform:uppercase; letter-spacing:0.08em; color:#6b7280; font-weight:700;">From</div>
-                    <div style="font-size:15px; font-weight:600; color:#111827;">${name}</div>
-                    <div style="font-size:14px; color:#374151;">${email}</div>
-                  </div>
-
-                  <div style="margin-bottom:12px;">
-                    <div style="font-size:12px; text-transform:uppercase; letter-spacing:0.08em; color:#6b7280; font-weight:700; margin-bottom:8px;">Message</div>
-                    <div style="font-size:15px; line-height:1.7; color:#111827; white-space:pre-wrap; background:#fafafa; border:1px solid #e5e7eb; border-radius:12px; padding:16px;">${message}</div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          `,
-        });
-      } catch (mailError) {
-        console.error('Error sending email:', mailError);
-        emailWarning = mailError.message || 'Email could not be sent';
-      }
-    } else {
-      emailWarning = 'Email settings are not configured';
+  if (connectionString) {
+    try {
+      const sql = neon(connectionString);
+      await sql`CREATE TABLE IF NOT EXISTS contact_messages (
+        id SERIAL PRIMARY KEY, name TEXT NOT NULL, email TEXT NOT NULL,
+        message TEXT NOT NULL, created_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
+      )`;
+      await sql`INSERT INTO contact_messages (name, email, message) VALUES (${name}, ${email}, ${message})`;
+    } catch {
+      console.error("Contact email delivered, but the database archive could not be updated.");
     }
-
-    return {
-      statusCode: 200,
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        message: 'Message sent successfully!',
-        warning: emailWarning,
-      })
-    };
-
-  } catch (error) {
-    console.error("Error in handler:", error);
-    return {
-      statusCode: 500,
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ error: error.message || 'Server error occurred' })
-    };
   }
+  return response(200, { message: "Thanks for reaching out. Your message is on its way." });
 }

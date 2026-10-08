@@ -10,7 +10,7 @@ Janudha is seeking a business analyst internship. He studies for a BSc (Hons) in
 - [About](https://janudha.com/about): Education, background, and career goals.
 - [Skills](https://janudha.com/skills): Business, technical, and collaboration skills.
 - [Projects](https://janudha.com/projects): Railway Reservation System, Cross-Region Based ERP System, Leaf Nest Eco-friendly System, and Movie Suggestion Platform.
-- [Posts](https://janudha.com/posts): Notes, learning progress, and project updates.
+- [Notes](https://janudha.com/notes): Notes, learning progress, and project updates.
 - [Contact](https://janudha.com/contact): Business analyst internship opportunities and project collaboration.
 
 ## Identity

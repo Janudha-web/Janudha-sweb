@@ -85,11 +85,11 @@ async function getReplyDepth(sql, replyId) {
   return result?.depth || 0;
 }
 
-export async function handler(event) {
+async function handleEvent(event, database) {
   const connectionString = process.env.NEON_DB_URL || process.env.DATABASE_URL || process.env.POSTGRES_URL;
   if (!connectionString) return response(500, { error: "Database connection is not configured." });
 
-  const sql = neon(connectionString);
+  const sql = database(connectionString);
   try {
     await setup(sql);
     const id = Number(event.queryStringParameters?.id);
@@ -109,7 +109,13 @@ export async function handler(event) {
       return response(200, { posts });
     }
 
-    const body = JSON.parse(event.body || "{}");
+    let body;
+    try {
+      body = JSON.parse(event.body || "{}");
+      if (!body || typeof body !== "object") throw new Error("Invalid JSON");
+    } catch {
+      return response(400, { error: "Invalid request." });
+    }
 
     if (event.httpMethod === "POST" && body.action === "reply") {
       const postId = Number(body.postId);
@@ -184,7 +190,7 @@ export async function handler(event) {
         UPDATE posts SET title=${title}, content=${content}, image_url=${imageUrl}, updated_at=NOW()
         WHERE id=${id} RETURNING *
       `;
-      return post ? response(200, { post }) : response(404, { error: "Post not found." });
+      return post ? response(200, { post }) : response(404, { error: "Note not found." });
     }
 
     const replyId = Number(event.queryStringParameters?.replyId);
@@ -202,7 +208,13 @@ export async function handler(event) {
 
     return response(405, { error: "Method not allowed." });
   } catch (error) {
-    console.error("Posts function error:", error);
-    return response(500, { error: error.message || "Server error." });
+    console.error("Notes function error:", error.code || "DATABASE_ERROR");
+    return response(500, { error: "Notes are temporarily unavailable. Please try again." });
   }
 }
+
+export function createNotesHandler({ database = neon } = {}) {
+  return event => handleEvent(event, database);
+}
+
+export const handler = createNotesHandler();

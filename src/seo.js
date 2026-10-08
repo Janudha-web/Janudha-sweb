@@ -35,7 +35,7 @@ export const seo = {
     heading: "Contact Janudha Kendangamuwa",
     summary: `Janudha welcomes business analyst internship opportunities and project collaboration. Email: ${profile.email}. Phone: ${profile.phone}. Location: ${profile.location}.`,
   },
-  "/posts": {
+  "/notes": {
     title: "Business & Technology Notes | Janudha Kendangamuwa",
     description: "Follow Janudha Kendangamuwa’s notes, learning progress, and project updates about business analysis, information technology, and system design.",
     heading: "Business and technology notes",
@@ -45,8 +45,8 @@ export const seo = {
 
 export const privatePaths = ["/admin", "/admin/dashboard"];
 const privateSeo = {
-  "/admin": { title: "Manage Posts | Janudha", description: "Private post management login.", heading: "Manage posts", summary: "" },
-  "/admin/dashboard": { title: "Admin Dashboard | Janudha", description: "Private post management dashboard.", heading: "Admin dashboard", summary: "" },
+  "/admin": { title: "Manage Notes | Janudha", description: "Private note management login.", heading: "Manage notes", summary: "" },
+  "/admin/dashboard": { title: "Admin Dashboard | Janudha", description: "Private note management dashboard.", heading: "Admin dashboard", summary: "" },
 };
 
 export function normalizePath(pathname) {
@@ -91,7 +91,7 @@ function getStructuredData(path, page) {
       knowsAbout: skills.flatMap(group => group.items),
     },
     {
-      "@type": path === "/about" || path === "/" ? "ProfilePage" : path === "/contact" ? "ContactPage" : path === "/projects" || path === "/posts" ? "CollectionPage" : "WebPage",
+      "@type": path === "/about" || path === "/" ? "ProfilePage" : path === "/contact" ? "ContactPage" : path === "/projects" || path === "/notes" ? "CollectionPage" : "WebPage",
       "@id": `${canonicalUrl}#webpage`, url: canonicalUrl, name: page.title,
       description: page.description, isPartOf: { "@id": `${siteUrl}/#website` },
       about: { "@id": personId }, inLanguage: "en",
@@ -122,7 +122,7 @@ function getStructuredData(path, page) {
     graph[2].mainEntity = { "@id": `${canonicalUrl}#projects` };
   }
 
-  if (path === "/posts") {
+  if (path === "/notes") {
     graph.push({
       "@type": "Blog", "@id": `${canonicalUrl}#blog`, url: canonicalUrl,
       name: page.heading, description: page.description, author: { "@id": personId },

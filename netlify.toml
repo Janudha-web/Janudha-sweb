@@ -34,7 +34,13 @@
 
 [[redirects]]
   from = "/posts"
-  to = "/posts/index.html"
+  to = "/notes"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/notes"
+  to = "/notes/index.html"
   status = 200
 
 [[redirects]]

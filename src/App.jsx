@@ -1,11 +1,11 @@
 import { Component, useEffect, useLayoutEffect } from "react";
-import { Routes, Route, Link, useLocation } from "react-router-dom";
+import { Routes, Route, Link, Navigate, useLocation } from "react-router-dom";
 import { ArrowRight, FileQuestion } from "lucide-react";
 import { getSeo, normalizePath } from "./seo";
 import { Header, Footer, Home, About, Skills, Projects, Contact } from "./Portfolio";
-import { AdminLogin, AdminPosts, Posts } from "./Posts";
+import { AdminLogin, AdminNotes, Notes } from "./Notes";
 
-const validPaths = new Set(["/", "/about", "/skills", "/projects", "/posts", "/contact", "/admin", "/admin/dashboard"]);
+const validPaths = new Set(["/", "/about", "/skills", "/projects", "/notes", "/contact", "/admin", "/admin/dashboard"]);
 
 function setMeta(selector, attribute, value) {
   let element = document.head.querySelector(selector);
@@ -126,5 +126,5 @@ class AppErrorBoundary extends Component {
 export default function App() {
   const location = useLocation();
   const isAdminDashboard = location.pathname === "/admin/dashboard";
-  return <AppErrorBoundary><Seo/><ScrollTop/><RouteProgress/>{!isAdminDashboard && <Header/>}<Routes><Route path="/" element={<Home/>}/><Route path="/about" element={<About/>}/><Route path="/skills" element={<Skills/>}/><Route path="/projects" element={<Projects/>}/><Route path="/posts" element={<Posts/>}/><Route path="/admin" element={<AdminLogin/>}/><Route path="/admin/dashboard" element={<AdminPosts/>}/><Route path="/contact" element={<Contact/>}/><Route path="*" element={<NotFound/>}/></Routes>{!isAdminDashboard && <Footer/>}</AppErrorBoundary>;
+  return <AppErrorBoundary><Seo/><ScrollTop/><RouteProgress/>{!isAdminDashboard && <Header/>}<Routes><Route path="/" element={<Home/>}/><Route path="/about" element={<About/>}/><Route path="/skills" element={<Skills/>}/><Route path="/projects" element={<Projects/>}/><Route path="/notes" element={<Notes/>}/><Route path="/posts" element={<Navigate to="/notes" replace/>}/><Route path="/admin" element={<AdminLogin/>}/><Route path="/admin/dashboard" element={<AdminNotes/>}/><Route path="/contact" element={<Contact/>}/><Route path="*" element={<NotFound/>}/></Routes>{!isAdminDashboard && <Footer/>}</AppErrorBoundary>;
 }

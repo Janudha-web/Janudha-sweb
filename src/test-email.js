@@ -1,26 +1,11 @@
-require('dotenv').config();
-const nodemailer = require('nodemailer');
+import "dotenv/config";
+import { createMailer } from "./functions/_email.js";
 
-async function testEmail() {
-  const transporter = nodemailer.createTransport({
-    service: 'gmail',
-    auth: {
-      user: process.env.EMAIL_USER,
-      pass: process.env.EMAIL_PASS,
-    },
-  });
-
-  try {
-    let info = await transporter.sendMail({
-      from: process.env.EMAIL_USER,
-      to: process.env.ADMIN_EMAIL,
-      subject: "Test Email from Nodemailer",
-      text: "This is a test email to verify SMTP credentials.",
-    });
-    console.log("Test email sent:", info.response);
-  } catch (err) {
-    console.error("Test email failed:", err);
-  }
+// Verify authentication without sending mail to the configured recipient.
+try {
+  await createMailer().verify();
+  console.log("Gmail SMTP connection and authentication verified.");
+} catch (error) {
+  console.error("Gmail SMTP check failed:", error.code || "SMTP_ERROR");
+  process.exitCode = 1;
 }
-
-testEmail();

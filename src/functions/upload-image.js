@@ -2,6 +2,7 @@ import "dotenv/config";
 import { createHash } from "node:crypto";
 import { neon } from "@neondatabase/serverless";
 import { setupAdminAuth, verifyAdminSession } from "./_admin-auth.js";
+import { cloudinarySettings } from "./_cloudinary.js";
 
 const json = (statusCode, body) => ({
   statusCode,
@@ -9,12 +10,12 @@ const json = (statusCode, body) => ({
   body: JSON.stringify(body),
 });
 
-export async function handler(event) {
+async function handleEvent(event, database, upload) {
   if (event.httpMethod !== "POST") return json(405, { error: "Method not allowed." });
   const connectionString = process.env.NEON_DB_URL || process.env.DATABASE_URL || process.env.POSTGRES_URL;
   if (!connectionString) return json(500, { error: "Database connection is not configured." });
   try {
-    const sql = neon(connectionString);
+    const sql = database(connectionString);
     await setupAdminAuth(sql);
     if (!(await verifyAdminSession(sql, event))) {
       return json(401, { error: "Admin session expired." });
@@ -24,10 +25,7 @@ export async function handler(event) {
     return json(500, { error: "Could not verify the admin session." });
   }
 
-  const cloudName = process.env.CLOUDINARY_CLOUD_NAME;
-  const apiKey = process.env.CLOUDINARY_API_KEY;
-  const apiSecret = process.env.CLOUDINARY_API_SECRET;
-  const uploadPreset = process.env.CLOUDINARY_UPLOAD_PRESET;
+  const { cloudName, apiKey, apiSecret, uploadPreset } = cloudinarySettings();
   if (!cloudName || (!uploadPreset && !(apiKey && apiSecret))) {
     return json(500, { error: "Cloudinary credentials are not configured." });
   }
@@ -49,14 +47,21 @@ export async function handler(event) {
     } else {
       form.append("upload_preset", uploadPreset);
     }
-    const result = await fetch(`https://api.cloudinary.com/v1_1/${cloudName}/image/upload`, {
+    const result = await upload(`https://api.cloudinary.com/v1_1/${cloudName}/image/upload`, {
       method: "POST",
       body: form,
     });
     const data = await result.json();
     if (!result.ok) throw new Error(data.error?.message || "Image upload failed.");
+    if (!data.secure_url?.startsWith("https://")) throw new Error("No secure image URL returned.");
     return json(200, { url: data.secure_url });
   } catch (error) {
     return json(500, { error: error.message || "Image upload failed." });
   }
 }
+
+export function createUploadHandler({ database = neon, upload = fetch } = {}) {
+  return event => handleEvent(event, database, upload);
+}
+
+export const handler = createUploadHandler();

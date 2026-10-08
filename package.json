@@ -6,7 +6,10 @@
   "scripts": {
     "dev": "vite",
     "build": "vite build && node scripts/generate-static-pages.mjs",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "test": "node --test tests/contact.test.js",
+    "test:integration": "RUN_DB_INTEGRATION=1 node --test tests/notes.integration.test.js",
+    "check:email": "node src/test-email.js"
   },
   "dependencies": {
     "@neondatabase/serverless": "^1.1.0",
