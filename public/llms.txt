@@ -1,6 +1,6 @@
-# Janudha Kendangamuwa
+# Janudha Nethmin Kendangamuwa
 
-> Portfolio of Janudha Kendangamuwa, an aspiring business analyst and IT for Business undergraduate in Kuruwita, Sri Lanka.
+> Portfolio of Janudha Nethmin Kendangamuwa, an aspiring business analyst and IT for Business undergraduate in Kuruwita, Sri Lanka.
 
 Janudha is seeking a business analyst internship. He studies for a BSc (Hons) in Information Technology for Business at NIBM in collaboration with Coventry University, England. His skills include UML, SDLC knowledge, Jira, Microsoft Office, SQL, Java, C#, UI interfaces, analytical thinking, and project management. He speaks English and Sinhala.
 
@@ -15,7 +15,8 @@ Janudha is seeking a business analyst internship. He studies for a BSc (Hons) in
 
 ## Identity
 
-- Name: Janudha Kendangamuwa
+- Name: Janudha Nethmin Kendangamuwa
+- Also known as: Janudha Nethmin, Janudha Kendangamuwa
 - Location: Kuruwita, Sri Lanka
 - Career goal: Business analyst internship
 - Education: Fourth-year BSc (Hons) IT for Business undergraduate at NIBM, in collaboration with Coventry University

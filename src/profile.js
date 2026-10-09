@@ -1,6 +1,8 @@
 // Portfolio facts transcribed from Janudha's résumé. Keep UI and SEO in sync.
 export const profile = {
   name: "Janudha Kendangamuwa",
+  fullName: "Janudha Nethmin Kendangamuwa",
+  alternateNames: ["Janudha Nethmin", "Janudha Kendangamuwa"],
   firstName: "Janudha",
   role: "Aspiring Business Analyst",
   location: "Kuruwita, Sri Lanka",

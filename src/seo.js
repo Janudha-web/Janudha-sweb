@@ -6,40 +6,40 @@ export const personId = `${siteUrl}/#person`;
 
 export const seo = {
   "/": {
-    title: "Janudha Kendangamuwa | Aspiring Business Analyst",
-    description: "Meet Janudha Kendangamuwa, an aspiring business analyst and IT for Business undergraduate at NIBM. Explore his skills, education, and projects in Sri Lanka.",
-    heading: profile.name,
+    title: "Janudha Nethmin Kendangamuwa | Aspiring Business Analyst",
+    description: "Meet Janudha Nethmin Kendangamuwa, an aspiring business analyst and IT for Business undergraduate at NIBM. Explore his skills, education, and projects in Sri Lanka.",
+    heading: profile.fullName,
     summary: profile.summary,
   },
   "/about": {
-    title: "About Janudha Kendangamuwa | Education & Background",
-    description: "Discover Janudha Kendangamuwa’s IT for Business studies at NIBM in collaboration with Coventry University, system design background, and career goals.",
-    heading: "About Janudha Kendangamuwa",
+    title: "About Janudha Nethmin Kendangamuwa | Education & Background",
+    description: "Discover Janudha Nethmin Kendangamuwa’s IT for Business studies at NIBM in collaboration with Coventry University, system design background, and career goals.",
+    heading: "About Janudha Nethmin Kendangamuwa",
     summary: "Janudha is a fourth-year BSc (Hons) IT for Business undergraduate at NIBM, in collaboration with Coventry University, England, seeking a business analyst internship.",
   },
   "/skills": {
-    title: "Business Analysis & Technical Skills | Janudha Kendangamuwa",
-    description: "Explore Janudha Kendangamuwa’s skills in UML, SDLC, Jira, SQL, Java, C#, UI design, project management, analytical thinking, and teamwork.",
+    title: "Business Analysis & Technical Skills | Janudha Nethmin Kendangamuwa",
+    description: "Explore Janudha Nethmin Kendangamuwa’s skills in UML, SDLC, Jira, SQL, Java, C#, UI design, project management, analytical thinking, and teamwork.",
     heading: "Business and technical skills",
     summary: skills.flatMap(group => group.items).join(", ") + ". Languages: English and Sinhala.",
   },
   "/projects": {
-    title: "Business & Technology Projects | Janudha Kendangamuwa",
-    description: "Explore Janudha Kendangamuwa’s railway reservation, cross-region ERP, Leaf Nest eco-friendly system, and movie suggestion projects.",
+    title: "Business & Technology Projects | Janudha Nethmin Kendangamuwa",
+    description: "Explore Janudha Nethmin Kendangamuwa’s railway reservation, cross-region ERP, Leaf Nest eco-friendly system, and movie suggestion projects.",
     heading: "Business and technology projects",
     summary: projects.map(project => `${project.title}: ${project.description}`).join(" "),
   },
   "/contact": {
-    title: "Contact Janudha Kendangamuwa | Business Analyst Opportunities",
-    description: "Contact Janudha Kendangamuwa in Kuruwita, Sri Lanka about business analyst internships, system design, and project collaboration. Connect by email or LinkedIn.",
-    heading: "Contact Janudha Kendangamuwa",
+    title: "Contact Janudha Nethmin Kendangamuwa | Business Analyst Opportunities",
+    description: "Contact Janudha Nethmin Kendangamuwa in Kuruwita, Sri Lanka about business analyst internships, system design, and project collaboration. Connect by email or LinkedIn.",
+    heading: "Contact Janudha Nethmin Kendangamuwa",
     summary: `Janudha welcomes business analyst internship opportunities and project collaboration. Email: ${profile.email}. Phone: ${profile.phone}. Location: ${profile.location}.`,
   },
   "/notes": {
-    title: "Business & Technology Notes | Janudha Kendangamuwa",
-    description: "Follow Janudha Kendangamuwa’s notes, learning progress, and project updates about business analysis, information technology, and system design.",
+    title: "Business & Technology Notes | Janudha Nethmin Kendangamuwa",
+    description: "Follow Janudha Nethmin Kendangamuwa’s notes, learning progress, and project updates about business analysis, information technology, and system design.",
     heading: "Business and technology notes",
-    summary: "Notes, learning progress, and project updates from Janudha Kendangamuwa.",
+    summary: "Notes, learning progress, and project updates from Janudha Nethmin Kendangamuwa.",
   },
 };
 
@@ -58,15 +58,15 @@ export function getSeo(pathname) {
   const path = normalizePath(pathname);
   const isPublic = Object.hasOwn(seo, path);
   const page = seo[path] || privateSeo[path] || {
-    title: "Page Not Found | Janudha Kendangamuwa",
-    description: "This page could not be found. Explore Janudha Kendangamuwa’s portfolio, education, skills, and projects.",
+    title: "Page Not Found | Janudha Nethmin Kendangamuwa",
+    description: "This page could not be found. Explore Janudha Nethmin Kendangamuwa’s portfolio, education, skills, and projects.",
     heading: "Page not found", summary: "The requested page could not be found.",
   };
   return {
     ...page,
     path,
-    keywords: isPublic ? "Janudha Kendangamuwa, business analyst, IT for Business, NIBM, Sri Lanka, portfolio" : "",
-    imageAlt: "Janudha Kendangamuwa logo",
+    keywords: isPublic ? [profile.fullName, ...profile.alternateNames, "business analyst", "IT for Business", "NIBM", "Sri Lanka", "portfolio"].join(", ") : "",
+    imageAlt: "Janudha Nethmin Kendangamuwa logo",
     canonicalUrl: `${siteUrl}${path === "/" ? "/" : path}`,
     image: socialImage,
     robots: isPublic ? "index, follow, max-image-preview:large" : "noindex, nofollow",
@@ -79,10 +79,11 @@ function getStructuredData(path, page) {
   const graph = [
     {
       "@type": "WebSite", "@id": `${siteUrl}/#website`, url: `${siteUrl}/`,
-      name: `${profile.name} Portfolio`, inLanguage: "en", publisher: { "@id": personId },
+      name: `${profile.fullName} Portfolio`, inLanguage: "en", publisher: { "@id": personId },
     },
     {
-      "@type": "Person", "@id": personId, name: profile.name, url: `${siteUrl}/`,
+      "@type": "Person", "@id": personId, name: profile.fullName, url: `${siteUrl}/`,
+      alternateName: profile.alternateNames,
       description: "Aspiring business analyst and fourth-year IT for Business undergraduate at NIBM, in collaboration with Coventry University, England.",
       image: `${siteUrl}/janudha-profile.jpg`,
       homeLocation: { "@type": "Place", name: profile.location },

@@ -54,7 +54,7 @@ try {
   await writeFile(join(outputDirectory, "404.html"), renderPage("/404", render));
 
   // This date tracks the résumé/content update, rather than every deployment.
-  const sitemap = `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n${Object.keys(seo).map(path => `  <url><loc>${escapeHtml(getSeo(path).canonicalUrl)}</loc><lastmod>2026-10-08</lastmod></url>`).join("\n")}\n</urlset>\n`;
+  const sitemap = `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n${Object.keys(seo).map(path => `  <url><loc>${escapeHtml(getSeo(path).canonicalUrl)}</loc><lastmod>2026-10-09</lastmod></url>`).join("\n")}\n</urlset>\n`;
   const robots = `User-agent: *\nAllow: /\n\nSitemap: ${siteUrl}/sitemap.xml\n`;
   await Promise.all([
     writeFile(join(outputDirectory, "sitemap.xml"), sitemap),

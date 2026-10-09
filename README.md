@@ -1,4 +1,4 @@
-# Janudha Kendangamuwa’s portfolio
+# Janudha Nethmin Kendangamuwa’s portfolio
 
 An Apple-inspired React portfolio with visual project features, compact navigation, a skills gallery, and responsive layouts, for an aspiring business analyst and NIBM IT for Business undergraduate, based on Janudha’s résumé. The production site URL is **https://janudha.netlify.app**.
 

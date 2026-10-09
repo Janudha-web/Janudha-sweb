@@ -24,7 +24,7 @@ function Seo() {
     const path = normalizePath(pathname);
     const isNotFound = !validPaths.has(path);
     const page = getSeo(path);
-    document.title = isNotFound ? "Page Not Found | Janudha Kendangamuwa" : page.title;
+    document.title = isNotFound ? "Page Not Found | Janudha Nethmin Kendangamuwa" : page.title;
     setMeta('meta[name="description"]', "content", page.description);
     setMeta('meta[name="keywords"]', "content", page.keywords);
     setMeta('meta[property="og:title"]', "content", page.title);
