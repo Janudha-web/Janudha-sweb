@@ -73,6 +73,15 @@ test("isolated Neon workflow: OTP, sessions, notes CRUD, visitor/admin replies a
   assert.match(verified.headers["Set-Cookie"], /HttpOnly/);
   assert.equal((await auth(event("POST", { action: "verifyOtp", email: process.env.ADMIN_EMAIL, code }))).statusCode, 401);
   assert.equal((await auth(event("POST", { action: "verifySession" }, cookie))).statusCode, 200);
+  const configuredAdmin = process.env.ADMIN_EMAIL;
+  try {
+    process.env.ADMIN_EMAIL = "changed-admin@example.com";
+    assert.equal((await auth(event("POST", { action: "verifySession" }, cookie))).statusCode, 401);
+    assert.equal((await notes(event("POST", { title: "Old admin", content: "Denied" }, cookie))).statusCode, 401);
+    assert.equal((await upload(event("POST", { image: "data:image/png;base64,AAAA" }, cookie))).statusCode, 401);
+  } finally {
+    process.env.ADMIN_EMAIL = configuredAdmin;
+  }
   assert.equal((await notes(event("POST", { title: "Unauthorized", content: "Denied" }))).statusCode, 401);
   const image = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAAB";
   assert.equal((await upload(event("POST", { image }))).statusCode, 401);

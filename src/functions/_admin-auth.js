@@ -46,11 +46,12 @@ export function adminSessionToken(event) {
 
 export async function verifyAdminSession(sql, event) {
   const token = adminSessionToken(event);
-  if (!token) return false;
+  const adminEmail = String(process.env.ADMIN_EMAIL || "").trim().toLowerCase();
+  if (!token || !adminEmail) return false;
   const tokenHash = hashAdminToken(token);
   const sessions = await sql`
     SELECT id FROM admin_sessions
-    WHERE token_hash=${tokenHash} AND expires_at > NOW()
+    WHERE token_hash=${tokenHash} AND LOWER(email)=${adminEmail} AND expires_at > NOW()
     LIMIT 1
   `;
   return sessions.length === 1;
