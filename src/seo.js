@@ -1,6 +1,6 @@
 import { profile, skills, projects } from "./profile.js";
 
-export const siteUrl = "https://janudha.com";
+export const siteUrl = "https://janudha.netlify.app";
 export const socialImage = `${siteUrl}/janulogo.png`;
 export const personId = `${siteUrl}/#person`;
 

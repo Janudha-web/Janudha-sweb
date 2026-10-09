@@ -1,6 +1,6 @@
 # Janudha Kendangamuwa’s portfolio
 
-An Apple-inspired React portfolio with visual project features, compact navigation, a skills gallery, and responsive layouts, for an aspiring business analyst and NIBM IT for Business undergraduate, based on Janudha’s résumé. The intended production domain is **https://janudha.com**.
+An Apple-inspired React portfolio with visual project features, compact navigation, a skills gallery, and responsive layouts, for an aspiring business analyst and NIBM IT for Business undergraduate, based on Janudha’s résumé. The production site URL is **https://janudha.netlify.app**.
 
 ## Development
 
@@ -27,7 +27,7 @@ Netlify publishes `dist` and runs functions from `src/functions`, as configured 
 - Public pages have unique titles, descriptions, canonical URLs, and Open Graph/Twitter cards. `public/janulogo.png` supplies the navigation logo, favicon, touch icon, and social sharing image.
 - The build generates `sitemap.xml` and `robots.txt` from the public route list. Update the content date in the generator when profile content changes.
 - Admin pages are built with `noindex, nofollow`; missing routes return a 404 on Netlify. Admin paths remain crawlable so search engines can read their `noindex` directives.
-- The old owner’s verification token and legacy static page are removed. Add Janudha’s own verification after connecting the domain to Google Search Console, then submit `https://janudha.com/sitemap.xml`.
+- The Google Search Console verification meta tag is included in `index.html`. After verifying the Netlify URL-prefix property, submit `https://janudha.netlify.app/sitemap.xml`.
 - Reference contact details from the résumé are not published. Project repository links can be added once Janudha supplies them.
 
 ## Notes and admin
